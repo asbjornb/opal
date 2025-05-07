@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Opal.Client\Opal.Client.csproj" />
+    <ProjectReference Include="..\..\Opal.Client\Opal.Client.csproj" />
   </ItemGroup>
 
 </Project>
