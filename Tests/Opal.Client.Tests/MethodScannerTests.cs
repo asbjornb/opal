@@ -20,6 +20,13 @@ public class MethodScannerTests
         [Callable("Private callable method", true)]
         private void PrivateCallableMethod() { }
 
+        [Callable("Static callable method", true)]
+        public static void StaticCallableMethod() { }
+
+        public static void StaticNonCallableMethod() { }
+
+        [Callable("Private static callable method", true)]
+        private static void PrivateStaticCallableMethod() { }
     }
 
     private class TestClassWithComplexParams
@@ -51,9 +58,26 @@ public class MethodScannerTests
         var methods = MethodScanner.ScanType(type).ToList();
 
         // Assert
-        Assert.Equal(2, methods.Count);
+        Assert.Equal(3, methods.Count);
         Assert.Contains(methods, m => m.MethodName == "PublicCallableMethod");
         Assert.Contains(methods, m => m.MethodName == "PublicCallableWithParams");
+        Assert.Contains(methods, m => m.MethodName == "StaticCallableMethod");
+    }
+
+    [Fact]
+    public void ScanType_IncludesStaticMethods()
+    {
+        // Arrange
+        var type = typeof(TestClass);
+
+        // Act
+        var methods = MethodScanner.ScanType(type).ToList();
+        var staticMethod = methods.FirstOrDefault(m => m.MethodName == "StaticCallableMethod");
+
+        // Assert
+        Assert.NotNull(staticMethod);
+        Assert.Equal("Static callable method", staticMethod.Description);
+        Assert.True(staticMethod.ReadOnly);
     }
 
     [Fact]
@@ -67,6 +91,7 @@ public class MethodScannerTests
 
         // Assert
         Assert.DoesNotContain(methods, m => m.MethodName == "PrivateCallableMethod");
+        Assert.DoesNotContain(methods, m => m.MethodName == "PrivateStaticCallableMethod");
     }
 
     [Fact]
@@ -80,6 +105,7 @@ public class MethodScannerTests
 
         // Assert
         Assert.DoesNotContain(methods, m => m.MethodName == "PublicNonCallableMethod");
+        Assert.DoesNotContain(methods, m => m.MethodName == "StaticNonCallableMethod");
     }
 
     [Fact]

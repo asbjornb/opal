@@ -16,7 +16,8 @@ public static class MethodScanner
     {
         ArgumentNullException.ThrowIfNull(type);
 
-        var methods = type.GetMethods(BindingFlags.Public | BindingFlags.Instance)
+        // Get all public methods (both instance and static)
+        var methods = type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
             .Where(m => m.GetCustomAttribute<CallableAttribute>() != null);
 
         var discoveredMethods = new List<DiscoveredMethod>();
