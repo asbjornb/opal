@@ -6,7 +6,7 @@
 [![Build Status](https://img.shields.io/github/actions/workflow/status/opal-project/opal/CI.yml)](https://github.com/opal-project/opal/actions)
 -->
 
-[![License](https://img.shields.io/github/license/opal-project/opal.svg)](LICENSE)
+[![License](https://img.shields.io/github/license/asbjornb/opal.svg)](LICENSE)
 
 Opal is a lightweight framework for exposing internal operational methods from .NET services through reflection and centralized registration. It enables teams to perform ad hoc debugging, reruns, maintenance tasks, or manual overrides without modifying public APIs or writing temporary scripts.
 
